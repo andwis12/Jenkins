@@ -4,7 +4,7 @@ pipeline{
   stages{
     stage('Test'){
         steps{
-            echo '123'
+            echo '1234'
         }
     }
     
