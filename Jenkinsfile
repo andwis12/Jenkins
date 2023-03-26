@@ -7,5 +7,11 @@ pipeline{
             echo '123'
         }
     }
+    
+    stage('Deploy'){
+        steps{
+            echo '123'
+        }
+    }
   }
 }
