@@ -13,10 +13,20 @@ pipeline {
 
         stage('Hello') {
             steps {
-                sh 'sfdx auth:jwt:grant --username $USERNAME \
+                script{
+                    withCredentials([
+                        string(credentialsId: "${USERNAME}", variable: "AUTH_USERNAME"),
+                        file(credentialsId: "${SERVER_KEY}", variable: "AUTH_SERVER_KEY"),
+                        string(credentialsId: "${CONSUMER_KEY}", variable: "AUTH_CONSUMER_KEY")
+                    ]){
+                        echo "---- Authenticate to ${TARGET_ORG} ----"
+                          sh 'sfdx auth:jwt:grant --username $USERNAME \
                                             --jwtkeyfile $KEY_FILE \
                                             --clientid $CONSUMER_KEY \
                                             --setdefaultusername'
+                    }
+                }
+              
             }
         }
 
